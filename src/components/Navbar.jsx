@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import Logo from './Logo'
+import Button from './Button'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -38,9 +39,7 @@ const Navbar = () => {
                     <button className="text-neutral-90 transition duration-200 hover:scale-105">
                         Sign In
                     </button>
-                    <button className="rounded-3xl bg-secondary-50 px-7 xl:px-10 py-2 text-white shadow-xl transition duration-200 hover:scale-105 hover:bg-secondary-70">
-                        Register
-                    </button>
+                    <Button variant="primary">Register</Button>
                 </div>
 
                 <button className="md:hidden" onClick={toggleMenu}>
@@ -67,12 +66,8 @@ const Navbar = () => {
                     ))}
                 </ul>
                 <div className="mt-4 flex items-center justify-center gap-3 font-extrabold">
-                    <button className="rounded-3xl border border-secondary-50 px-10 py-2 text-left text-neutral-90 transition duration-200 hover:bg-secondary-10 hover:scale-105">
-                        Sign In
-                    </button>
-                    <button className="rounded-3xl bg-secondary-50 px-10 py-2 text-white shadow-xl transition duration-200 hover:scale-105 hover:bg-secondary-70">
-                        Register
-                    </button>
+                    <Button variant="secondary">Sign In</Button>
+                    <Button variant="primary">Register</Button>
                 </div>
             </div>
         </nav>
