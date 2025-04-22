@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 
 const Hero = () => {
     return (
-        <section className='bg-secondary-10 py-10'>
+        <section className='bg-secondary-10 py-10 xl:py-0'>
             <div className='container flex justify-between items-center'>
                 <div className='space-y-7 lg:w-2/5'>
                     <h1 className='font-extrabold text-5xl text-secondary-50'>
@@ -17,7 +17,7 @@ const Hero = () => {
                         <Icon icon="humbleicons:arrow-up" fontSize={20} className='rotate-45' />
                     </Button>
                 </div>
-                <div className='w-2/5 hidden lg:block'>
+                <div className='w-2/5 xl:w-1/2 hidden lg:block'>
                     <img src={HeroImage} alt="hero image" />
                 </div>
             </div>

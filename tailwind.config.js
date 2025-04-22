@@ -33,6 +33,7 @@ export default {
           50: "#8ACCF",
           70: "#6EA3CC",
           90: "#304759",
+          100: "#278BD8"
         },
         secondary: {
           10: "#FDF2F0",
