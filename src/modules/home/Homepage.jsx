@@ -6,6 +6,7 @@ import Komitmen from './components/Komitmen'
 import Fitur from './components/Fitur'
 import FaseTumbuh from './components/FaseTumbuh'
 import Ads from './components/Ads'
+import BeritaEdukasi from './components/BeritaEdukasi'
 
 const Homepage = () => {
     return (
@@ -17,6 +18,7 @@ const Homepage = () => {
                 <Fitur />
                 <FaseTumbuh />
                 <Ads />
+                <BeritaEdukasi />
             </div>
         </MainLayout>
     )
