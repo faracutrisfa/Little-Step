@@ -35,9 +35,9 @@ const ContactInfo = () => (
 );
 
 const Tags = () => (
-    <div className="mt-4 flex gap-2 text-sm font-bold lg:font-extrabold text-white">
+    <div className="mt-5 flex gap-2 text-sm font-bold lg:font-extrabold text-white">
         {['Health', 'Nutrition', 'Baby'].map(tag => (
-            <span key={tag} className="rounded-lg bg-primary-50 px-3 py-1">{tag}</span>
+            <span key={tag} className="rounded-lg bg-primary-50 px-4 py-1">{tag}</span>
         ))}
     </div>
 );
@@ -121,7 +121,7 @@ const Kalkulator = () => (
         <div className="container relative grid grid-cols-1 gap-16 lg:gap-8 py-10 md:grid-cols-2">
             <div className="flex flex-col justify-center">
                 <h1 className="mb-1 text-2xl lg:text-3xl font-extrabold">Kalkulator Gizi</h1>
-                <p className="text-sm lg:text-base mb-8">
+                <p className="text-sm lg:text-base mb-4">
                     Kami menggunakan rumus standar BMI untuk membantu Bunda memahami kebutuhan gizi si kecil secara lebih akurat.
                 </p>
                 <ContactInfo />
