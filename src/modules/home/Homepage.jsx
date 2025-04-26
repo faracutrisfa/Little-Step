@@ -7,6 +7,7 @@ import Fitur from './components/Fitur'
 import FaseTumbuh from './components/FaseTumbuh'
 import Ads from './components/Ads'
 import BeritaEdukasi from './components/BeritaEdukasi'
+import Testimoni from './components/Testimoni'
 
 const Homepage = () => {
     return (
@@ -19,6 +20,7 @@ const Homepage = () => {
                 <FaseTumbuh />
                 <Ads />
                 <BeritaEdukasi />
+                <Testimoni />
             </div>
         </MainLayout>
     )
