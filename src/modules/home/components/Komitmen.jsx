@@ -35,8 +35,8 @@ const komitmenList = [
 const Komitmen = () => {
   return (
     <section className="py-12">
-      <div className="container mx-auto grid lg:grid-cols-2 items-center ">
-        <div>
+      <div className="container mx-auto grid lg:grid-cols-2 items-center">
+        <div className='flex justify-center'>
           <img src={HeroKomitmen} alt="Komitmen" className="w-full max-w-md mx-auto md:mx-0" />
         </div>
 
