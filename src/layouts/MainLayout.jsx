@@ -6,7 +6,7 @@ const MainLayout = ({ children }) => {
     return (
         <div className='font-nunito'>
             <Navbar />
-            <div className='mt-16 lg:mt-20'>
+            <div className='mt-[70px] lg:mt-20'>
                 {children}
             </div>
             <Footer />

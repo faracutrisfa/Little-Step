@@ -42,7 +42,7 @@ const Navbar = () => {
                 </div>
 
                 <button className="md:hidden" onClick={toggleMenu}>
-                    <Icon icon={isOpen ? 'mdi:close' : 'mdi:menu'} width="28" />
+                    <Icon icon={isOpen ? 'mdi:close' : 'mdi:menu'} width="24" />
                 </button>
             </div>
 
