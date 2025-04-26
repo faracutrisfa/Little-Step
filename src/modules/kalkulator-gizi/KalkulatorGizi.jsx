@@ -2,6 +2,7 @@ import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import Hero from './components/Hero'
 import Kalkulator from './components/Kalkulator'
+import FoodScan from './components/FoodScan'
 
 const KalkulatorGizi = () => {
     return (
@@ -9,6 +10,7 @@ const KalkulatorGizi = () => {
             <div>
                 <Hero />
                 <Kalkulator />
+                <FoodScan />
             </div>
         </MainLayout>
     )

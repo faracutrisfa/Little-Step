@@ -37,7 +37,7 @@ const ContactInfo = () => (
 const Tags = () => (
     <div className="mt-4 flex gap-2 text-sm font-bold lg:font-extrabold text-white">
         {['Health', 'Nutrition', 'Baby'].map(tag => (
-            <span key={tag} className="rounded-full bg-primary-50 px-3 py-1">{tag}</span>
+            <span key={tag} className="rounded-lg bg-primary-50 px-3 py-1">{tag}</span>
         ))}
     </div>
 );
