@@ -4,6 +4,8 @@ import Hero from './components/Hero'
 import DaruratGizi from './components/DaruratGizi'
 import Komitmen from './components/Komitmen'
 import Fitur from './components/Fitur'
+import FaseTumbuh from './components/FaseTumbuh'
+import Ads from './components/Ads'
 
 const Homepage = () => {
     return (
@@ -13,6 +15,8 @@ const Homepage = () => {
                 <DaruratGizi />
                 <Komitmen />
                 <Fitur />
+                <FaseTumbuh />
+                <Ads />
             </div>
         </MainLayout>
     )
