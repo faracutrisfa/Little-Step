@@ -31,7 +31,7 @@ const DaruratGizi = () => {
   return (
     <section>
       <div className="container py-10">
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 container">
           <h1 className="text-primary-0 font-bold text-2xl lg:text-4xl">
             Darurat Gizi Anak
           </h1>
@@ -43,6 +43,8 @@ const DaruratGizi = () => {
           {cardData.map((card, index) => {
             const bgImage = index % 2 === 0 ? 'bg-primary-100' : 'bg-secondary-50';
             const bgColor = index % 2 === 0 ? 'bg-primary-10' : 'bg-secondary-30';
+            const textColor = index % 2 === 0 ? 'text-primary-100' : 'text-secondary-50';
+            const textColor2 = index % 2 === 0 ? 'text-neutral 90' : 'text-secondary-50';
             return (
               <div
                 key={index}
@@ -52,10 +54,10 @@ const DaruratGizi = () => {
                   <img src={card.image} alt="icon" className="w-14 lg:w-16 object-cover" />
                 </div>
 
-                <h2 className="text-primary-100 font-extrabold text-xl lg:text-4xl lg:pt-2">
+                <h2 key={index} className={`${textColor} font-bold text-2xl lg:text-3xl`}>
                   {card.jumlah}
                 </h2>
-                <p className="text-neutral-90 font-semibold mt-2 text-sm lg:text-base">
+                <p key={index} className={`${textColor2} font-semibold mt-2 text-sm lg:text-base`}>
                   {card.desc}
                 </p>
               </div>

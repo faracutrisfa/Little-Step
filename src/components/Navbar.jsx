@@ -18,16 +18,15 @@ const Navbar = () => {
     const toggleMenu = () => setIsOpen(!isOpen)
 
     return (
-        <nav className="text-neutral-50 text-sm lg:text-base py-5">
-            <div className="container mx-auto flex items-center justify-between">
+        <nav className="fixed top-0 left-0 w-full z-50 bg-white text-neutral-50 text-sm lg:text-base shadow-md">
+            <div className="mx-auto flex items-center justify-between px-4 lg:px-10 xl:px-14 py-4 md:py-5">
                 <Logo />
-                <ul className="hidden gap-5 lg:gap-10 font-extrabold md:flex">
+                <ul className="hidden gap-10 font-extrabold md:flex">
                     {navLinks.map(({ name, path }) => (
                         <li key={name}>
                             <Link
                                 to={path}
-                                className={`transition-colors cursor-pointer hover:text-secondary-50 ${pathname === path ? 'text-secondary-50' : ''
-                                    }`}
+                                className={`transition-colors hover:text-secondary-50 ${pathname === path ? 'text-secondary-50' : ''}`}
                             >
                                 {name}
                             </Link>
@@ -35,7 +34,7 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                <div className="hidden gap-4 font-extrabold md:flex">
+                <div className="hidden md:flex gap-4 font-extrabold">
                     <button className="text-neutral-90 transition duration-200 hover:scale-105">
                         Sign In
                     </button>
@@ -43,22 +42,18 @@ const Navbar = () => {
                 </div>
 
                 <button className="md:hidden" onClick={toggleMenu}>
-                    <Icon icon={isOpen ? 'mdi:close' : 'mdi:menu'} width="24" />
+                    <Icon icon={isOpen ? 'mdi:close' : 'mdi:menu'} width="28" />
                 </button>
             </div>
 
-            <div
-                className={`container overflow-hidden px-4 transition-all duration-300 ease-in-out md:hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-            >
-                <ul className="flex flex-col items-center gap-4 pt-2 text-center font-extrabold">
+            <div className={`md:hidden transition-all duration-300 ease-in-out bg-white overflow-hidden ${isOpen ? 'max-h-screen pb-4' : 'max-h-0 py-0'}`}>
+                <ul className="flex flex-col items-center gap-4 font-extrabold">
                     {navLinks.map(({ name, path }) => (
                         <li key={name}>
                             <Link
                                 to={path}
                                 onClick={() => setIsOpen(false)}
-                                className={`transition-colors cursor-pointer hover:text-secondary-50 ${pathname === path ? 'text-secondary-50' : ''
-                                    }`}
+                                className={`block py-2 transition-colors hover:text-secondary-50 ${pathname === path ? 'text-secondary-50' : ''}`}
                             >
                                 {name}
                             </Link>
