@@ -45,7 +45,7 @@ const FoodScan = () => {
                             <img
                                 src={URL.createObjectURL(file)}
                                 alt="Uploaded Preview"
-                                className="w-full object-cover rounded-md"
+                                className="w-80 rounded-md"
                             />
                         ) : (
                             <div className="flex flex-col items-center gap-2">
