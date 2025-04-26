@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/kalkulator-gizi", "destination": "/" },
+    { "source": "/food-scan", "destination": "/" },
+    { "source": "/resep-mpasi", "destination": "/" },
+    { "source": "/", "destination": "/" }
+  ]
+}
