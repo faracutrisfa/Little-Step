@@ -128,7 +128,7 @@ const Kalkulator = () => (
                 <Tags />
             </div>
 
-            <div className="relative overflow-hidden rounded-xl">
+            <div className="relative overflow-hidden rounded-xl p-1">
                 <NutritionForm />
             </div>
         </div>
