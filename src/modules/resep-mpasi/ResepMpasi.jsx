@@ -1,10 +1,15 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
+import Hero from './components/Hero'
+import JenisMakanan from './components/JenisMakanan'
 
 const ResepMpasi = () => {
     return (
         <MainLayout>
-            ini resep mpasi
+            <div>
+                <Hero />
+                <JenisMakanan />
+            </div>
         </MainLayout>
     )
 }
