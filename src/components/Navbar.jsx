@@ -10,8 +10,8 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', path: '/' },
+        { name: 'About Us', path: '/about-us' },
         { name: 'Kalkulator Gizi', path: '/kalkulator-gizi' },
-        { name: 'AI Food Scan', path: '/food-scan' },
         { name: 'Resep MPASI', path: '/resep-mpasi' },
     ]
 
@@ -21,7 +21,7 @@ const Navbar = () => {
         <nav className="fixed top-0 left-0 w-full z-50 bg-white text-neutral-50 text-sm lg:text-base shadow-md">
             <div className="mx-auto flex items-center justify-between px-4 lg:px-10 xl:px-14 py-4 md:py-5">
                 <Logo />
-                <ul className="hidden gap-10 font-extrabold md:flex">
+                <ul className="hidden gap-10 xl:gap-14 font-extrabold md:flex">
                     {navLinks.map(({ name, path }) => (
                         <li key={name}>
                             <Link
@@ -34,7 +34,7 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                <div className="hidden md:flex gap-4 font-extrabold">
+                <div className="hidden md:flex gap-6 font-extrabold">
                     <button className="text-neutral-90 transition duration-200 hover:scale-105">
                         Sign In
                     </button>
