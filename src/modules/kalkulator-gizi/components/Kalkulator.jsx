@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ContactInfo = () => (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-5">
         {[
             {
                 title: "Chat dengan Kami",
@@ -48,7 +48,7 @@ const NutritionForm = () => (
             type="text"
             name="baby-name"
             placeholder="Nama Lengkap Bayi"
-            className="w-full rounded-lg bg-primary-30 p-3 font-bold lg:font-extrabold placeholder-primary-50"
+            className="w-full rounded-lg bg-primary-30 text-sm lg:text-base p-3 font-bold lg:font-extrabold placeholder-primary-50"
         />
         <div className="flex gap-4">
             {[
@@ -61,7 +61,7 @@ const NutritionForm = () => (
                     id={id}
                     name={id}
                     placeholder={placeholder}
-                    className="w-1/2 rounded-lg bg-primary-30 p-3 font-bold lg:font-extrabold placeholder-primary-50"
+                    className="w-1/2 rounded-lg bg-primary-30 text-sm lg:text-base p-3 font-bold lg:font-extrabold placeholder-primary-50"
                 />
             ))}
         </div>
@@ -74,7 +74,7 @@ const NutritionForm = () => (
                 <label
                     key={id}
                     htmlFor={id}
-                    className="flex w-1/2 items-center gap-2 rounded-lg bg-primary-30 p-3 font-bold lg:font-extrabold text-primary-50"
+                    className="flex w-1/2 items-center gap-2 rounded-lg bg-primary-30 text-sm lg:text-base p-3 font-bold lg:font-extrabold text-primary-50"
                 >
                     <input type="radio" id={id} name="gender" className="accent-primary-70" />
                     {label}
@@ -89,9 +89,9 @@ const NutritionForm = () => (
                     type="date"
                     id="birth-date"
                     name="birth-date"
-                    className="w-1/2 rounded-lg bg-primary-30 p-3 font-bold lg:font-extrabold text-primary-50"
+                    className="w-1/2 rounded-lg bg-primary-30 text-sm lg:text-base p-3 font-bold lg:font-extrabold text-primary-50"
                 />
-                <p className="mt-1 text-sm font-bold lg:font-extrabold text-primary-50">6 bulan 0 hari</p>
+                <p className="text-sm font-bold lg:font-extrabold text-primary-50">6 bulan 0 hari</p>
             </div>
         </div>
 
@@ -103,7 +103,7 @@ const NutritionForm = () => (
                 id="food-ingredients"
                 name="food-ingredients"
                 placeholder="Tuliskan Bahan makanan apa saja yang Bunda miliki"
-                className="h-24 w-full resize-none rounded-lg bg-primary-30 p-3 placeholder-primary-50"
+                className="h-24 w-full resize-none rounded-lg bg-primary-30 text-sm lg:text-base p-3 font-bold placeholder-primary-50"
             />
         </div>
 
@@ -118,7 +118,7 @@ const NutritionForm = () => (
 
 const Kalkulator = () => (
     <section>
-        <div className="container relative grid grid-cols-1 gap-16 lg:gap-8 py-10 md:grid-cols-2">
+        <div className="container relative grid grid-cols-1 gap-14 lg:gap-8 py-14 md:grid-cols-2">
             <div className="flex flex-col justify-center">
                 <h1 className="mb-1 text-2xl lg:text-3xl font-extrabold">Kalkulator Gizi</h1>
                 <p className="text-sm lg:text-base mb-4">
