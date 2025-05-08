@@ -27,7 +27,7 @@ const EkslusifResep = () => {
                             className="w-full h-full object-cover"
                         />
                         <div className="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-white/80 to-transparent w-full">
-                            <h2 className="text-4xl font-extrabold text-primary-0">30+ Akses Resep</h2>
+                            <h2 className="text-2xl lg:text-4xl font-extrabold text-primary-0">30+ Akses Resep</h2>
                             <p className="text-[#3D93D7] font-bold mt-2">
                                 Resep MPASI bernutrisi berbahan alami, dikurasi khusus untuk kebutuhan harian bayi 6–12 bulan. Ada kandungan gizinya juga, lho!
                             </p>
