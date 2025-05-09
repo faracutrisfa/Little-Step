@@ -36,10 +36,18 @@ const Navbar = () => {
                 </ul>
 
                 <div className="hidden md:flex gap-6 font-extrabold">
-                    <button className="text-neutral-90 transition duration-200 hover:scale-105">
-                        Sign In
-                    </button>
-                    <Button variant="primary">Register</Button>
+                    <div className="hidden md:flex gap-6 font-extrabold items-center">
+                        <Link
+                            to="/login"
+                            className="text-neutral-90 transition duration-200 hover:scale-105"
+                        >
+                            Sign In
+                        </Link>
+                        <Link to="/register">
+                            <Button variant="primary">Register</Button>
+                        </Link>
+                    </div>
+
                 </div>
 
                 <button className="md:hidden" onClick={toggleMenu}>
@@ -62,8 +70,14 @@ const Navbar = () => {
                     ))}
                 </ul>
                 <div className="mt-4 flex items-center justify-center gap-3 font-extrabold">
-                    <Button variant="secondary">Sign In</Button>
-                    <Button variant="primary">Register</Button>
+                    <div className="mt-4 flex items-center justify-center gap-3 font-extrabold">
+                        <Link to="/login" onClick={() => setIsOpen(false)}>
+                            <Button variant="secondary">Sign In</Button>
+                        </Link>
+                        <Link to="/register" onClick={() => setIsOpen(false)}>
+                            <Button variant="primary">Register</Button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>
