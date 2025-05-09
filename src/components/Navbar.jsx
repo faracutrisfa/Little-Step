@@ -61,7 +61,7 @@ const Navbar = () => {
                         <li key={name}>
                             <Link
                                 to={path}
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                                 className={`block py-2 transition-colors hover:text-secondary-50 ${pathname === path ? 'text-secondary-50' : ''}`}
                             >
                                 {name}
