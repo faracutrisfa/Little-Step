@@ -3,6 +3,8 @@
     { "source": "/kalkulator-gizi", "destination": "/" },
     { "source": "/about-us", "destination": "/" },
     { "source": "/resep-mpasi", "destination": "/" },
+    { "source": "/login", "destination": "/" },
+    { "source": "/register", "destination": "/" },
     { "source": "/", "destination": "/" }
   ]
 }
