@@ -1,120 +1,110 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
+import SdgImage from "../../../assets/sdg.webp";
+import HeroMission from "../../../assets/hero-mision.webp";
 
 const VisiMisi = () => {
     return (
-        <section className="py-16 relative overflow-hidden">
-            <div className="container mx-auto relative z-10">
+        <section className="py-14">
+            <div className="container space-y-16 lg:space-y-24">
                 {/* Vision Section */}
-                <div className="flex flex-col lg:flex-row items-start gap-8 mb-16">
-                    <div className="flex-shrink-0">
-                        <div className="bg-green-500 rounded-lg p-4 w-32 h-32 flex flex-col items-center justify-center">
-                            <div className="text-white text-3xl font-bold">3</div>
-                            <div className="text-white text-xs text-center mt-1">GOOD HEALTH AND WELL-BEING</div>
-                            <Icon icon="mdi:heartbeat" className="text-white text-3xl mt-2" />
-                        </div>
-                        <div className="bg-white border border-green-500 rounded-lg p-2 mt-2 w-32 flex flex-col items-center justify-center">
-                            <div className="text-green-500 font-bold text-2xl">3.2</div>
-                            <div className="text-green-500 text-xs text-center">NEONATAL AND CHILD MORTALITY</div>
-                        </div>
-                    </div>
-
-                    <div className="flex-grow">
-                        <h2 className="text-gray-700 text-3xl font-bold mb-6">Our Vision</h2>
-                        <p className="text-gray-600 mb-6">
-                            Menjadi platform terpercaya yang berkontribusi nyata dalam mengurangi angka kematian bayi
-                            dan balita di Indonesia melalui edukasi, pemantauan, dan dukungan kesehatan yang
-                            berkelanjutan bagi keluarga.
-                        </p>
-
-                        <div className=" p-4 rounded-lg">
-                            <h3 className="text-gray-700 font-bold mb-2">SDGS 3.2 Neonatal Child and Mortality</h3>
-                            <p className="text-gray-600">
-                                Mengakhiri kematian yang dapat dicegah pada bayi baru lahir
-                                dan anak di bawah usia 5 tahun pada tahun 2030.
+                <article className="flex flex-wrap lg:flex-nowrap gap-16 items-center">
+                    <figure className="w-full lg:w-1/2">
+                        <img src={SdgImage} alt="Ilustrasi Tujuan SDGs" className="w-full" />
+                    </figure>
+                    <div className="w-full space-y-6">
+                        <header className="space-y-2">
+                            <h2 className="text-2xl lg:text-4xl font-bold">Our Vision</h2>
+                            <p className="font-semibold text-zinc-600 text-sm lg:text-base">
+                                Menjadi platform terpercaya yang berkontribusi nyata dalam mengurangi angka kematian bayi dan balita di Indonesia melalui edukasi, pemantauan, dan dukungan kesehatan yang berkelanjutan bagi keluarga.
                             </p>
+                        </header>
+                        <div className="flex items-start gap-4">
+                            <img
+                                src="https://img.icons8.com/ios-filled/100/6EA3CC/breastfeeding.png"
+                                alt="Ikon SDGs"
+                                className="w-16"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold text-zinc-800">
+                                    SDGS 3.2 Neonatal Child and Mortality
+                                </h3>
+                                <p className="font-semibold text-zinc-600 text-sm lg:text-base">
+                                    Mengakhiri kematian yang dapat dicegah pada bayi baru lahir dan anak di bawah usia 5 tahun pada tahun 2030.
+                                </p>
+                            </div>
                         </div>
-
                     </div>
-                </div>
+                </article>
 
                 {/* Mission Section */}
-                <div className="mb-16">
-                    <h2 className="text-gray-700 text-3xl font-bold mb-6 text-center">Our Mission</h2>
-                    <p className="text-gray-600 text-center mb-12">
-                        Kami percaya bahwa setiap anak berhak tumbuh sehat, kuat, dan bahagia sejak hari
-                        pertama kehidupannya, oleh karena itu kami memiliki misi :
-                    </p>
+                <article className="space-y-12">
+                    <header className="text-center space-y-4">
+                        <h2 className="text-2xl lg:text-4xl font-bold">Our Mission</h2>
+                        <p className="lg:text-lg font-bold text-zinc-700">
+                            Kami percaya bahwa setiap anak berhak tumbuh sehat, kuat, dan bahagia sejak hari pertama kehidupannya. Oleh karena itu, kami memiliki misi:
+                        </p>
+                    </header>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Info dan Panduan */}
-                        <div className="flex gap-6 items-start">
-                            <div className="bg-yellow-100 rounded-full p-4 flex-shrink-0">
-                                <Icon icon="mdi:file-document-outline" className="text-4xl text-yellow-500" />
-                            </div>
-                            <div>
-                                <h3 className="text-gray-700 font-bold mb-2">Informasi dan Panduan</h3>
-                                <p className="text-gray-600">
-                                    Menyediakan informasi dan panduan kesehatan anak usia dini yang akurat,
-                                    mudah diakses, dan berbasis ilmu medis terkini.
-                                </p>
-                            </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+                        <div className="space-y-8 max-w-sm mx-auto">
+                            <MissionItem
+                                icon="https://img.icons8.com/?size=100&id=79773&format=png&color=FFFFFF"
+                                color="bg-amber-300"
+                                outlineColor="outline-amber-300"
+                                title="Informasi dan Panduan"
+                                description="Menyediakan informasi dan panduan kesehatan anak usia dini yang akurat, mudah diakses, dan berbasis ilmu medis terkini."
+                            />
+                            <MissionItem
+                                icon="https://img.icons8.com/?size=100&id=61624&format=png&color=FFFFFF"
+                                color="bg-blue-300"
+                                outlineColor="outline-blue-300"
+                                title="Sadar dan Aktif"
+                                description="Mendorong orang tua untuk lebih sadar dan aktif dalam memantau tumbuh kembang serta status gizi anak."
+                            />
                         </div>
 
-                        {/* Berkolaborasi */}
-                        <div className="flex gap-6 items-start">
-                            <div className="flex-shrink-0">
-                                <div className="bg-red-100 rounded-full p-4">
-                                    <Icon icon="mdi:message-outline" className="text-4xl text-red-400" />
-                                </div>
-                            </div>
-                            <div>
-                                <h3 className="text-gray-700 font-bold mb-2">Berkolaborasi</h3>
-                                <p className="text-gray-600">
-                                    Berkolaborasi dengan berbagai pihak, untuk memperluas dampak kesehatan anak secara nasional.
-                                </p>
-                            </div>
-                        </div>
+                        <figure className="w-full max-w-md mx-auto">
+                            <img src={HeroMission} alt="Ilustrasi Misi" className="w-full" />
+                        </figure>
 
-                        {/* Sadar dan Aktif */}
-                        <div className="flex gap-6 items-start">
-                            <div className="bg-blue-100 rounded-full p-4 flex-shrink-0">
-                                <Icon icon="mdi:camera" className="text-4xl text-blue-500" />
-                            </div>
-                            <div>
-                                <h3 className="text-gray-700 font-bold mb-2">Sadar dan Aktif</h3>
-                                <p className="text-gray-600">
-                                    Mendorong orang tua untuk lebih sadar dan aktif dalam memantau tumbuh kembang serta status gizi anak.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Ekosistem Digital */}
-                        <div className="flex gap-6 items-start">
-                            <div className="bg-purple-100 rounded-full p-4 flex-shrink-0">
-                                <Icon icon="mdi:devices" className="text-4xl text-purple-800" />
-                            </div>
-                            <div>
-                                <h3 className="text-gray-700 font-bold mb-2">Ekosistem Digital</h3>
-                                <p className="text-gray-600">
-                                    Membangun ekosistem digital yang mendukung pencegahan stunting, malnutrisi, dan penyakit yang dapat dicegah sejak dini.
-                                </p>
-                            </div>
+                        <div className="space-y-8 max-w-sm mx-auto">
+                            <MissionItem
+                                icon="https://img.icons8.com/?size=100&id=59800&format=png&color=FFFFFF"
+                                color="bg-red-400"
+                                outlineColor="outline-red-400"
+                                title="Berkolaborasi"
+                                description="Berkolaborasi dengan berbagai pihak untuk memperluas dampak kesehatan anak secara nasional."
+                                reverse
+                            />
+                            <MissionItem
+                                icon="https://img.icons8.com/?size=100&id=79779&format=png&color=FFFFFF"
+                                color="bg-pink-900"
+                                outlineColor="outline-pink-900"
+                                title="Ekosistem Digital"
+                                description="Membangun ekosistem digital yang mendukung pencegahan stunting, malnutrisi, dan penyakit yang dapat dicegah sejak dini."
+                                reverse
+                            />
                         </div>
                     </div>
-                </div>
-
-                {/* Center Baby Image */}
-                <div className="absolute left-1/2 top-2/3 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-90">
-                    <img
-                        src="/api/placeholder/250/250"
-                        alt="Baby with blocks"
-                        className="rounded-lg shadow-lg"
-                    />
-                </div>
+                </article>
             </div>
         </section>
     );
 };
+
+const MissionItem = ({ icon, outlineColor, color, title, description, reverse = false }) => (
+    <div className={`flex items-center gap-4 ${reverse ? 'flex-row-reverse text-right' : ''}`}>
+        <div className={`w-16 h-16 lg:w-20 lg:h-20 p-2.5 rounded-full outline outline-1 outline-offset-[-1px] inline-flex justify-center items-center gap-2.5 ${outlineColor}`}>
+            <div className={`${color} w-12 h-11 lg:w-16 lg:h-16 p-2.5 rounded-full inline-flex flex-col justify-start items-start gap-2.5 `}>
+                <img src={icon} alt="icon" className='w-20' />
+            </div>
+        </div>
+        <div>
+            <h3 className="lg:text-xl font-bold">{title}</h3>
+            <p className="text-zinc-600 font-medium text-sm lg:text-base">{description}</p>
+        </div>
+    </div>
+);
 
 export default VisiMisi;
