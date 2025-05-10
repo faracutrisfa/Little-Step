@@ -5,6 +5,7 @@
     { "source": "/resep-mpasi", "destination": "/" },
     { "source": "/login", "destination": "/" },
     { "source": "/register", "destination": "/" },
+    { "source": "/dashboard", "destination": "/" },
     { "source": "/", "destination": "/" }
   ]
 }

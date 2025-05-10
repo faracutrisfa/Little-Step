@@ -5,6 +5,7 @@ import ResepMpasi from '../modules/resep-mpasi/ResepMpasi'
 import About from '../modules/AboutUs/About'
 import Login from '../modules/auth/Login'
 import Register from '../modules/auth/Register'
+import Dashboard from '../modules/dashboard/Dashboard'
 
 export default function AppRoutes() {
     return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
                 <Route path='/kalkulator-gizi' element={<KalkulatorGizi />} />
                 <Route path='/about-us' element={<About />} />
                 <Route path='/resep-mpasi' element={<ResepMpasi />} />
+                <Route path='/dashboard' element={<Dashboard />} />
             </Routes>
         </BrowserRouter>
     )

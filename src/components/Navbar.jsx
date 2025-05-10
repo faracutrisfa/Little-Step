@@ -13,11 +13,18 @@ const Navbar = () => {
     const dropdownRef = useRef(null)
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user')
-        if (storedUser) {
-            setUser(JSON.parse(storedUser))
+        const handleStorageChange = () => {
+            const storedUser = localStorage.getItem('user')
+            setUser(storedUser ? JSON.parse(storedUser) : null)
+        }
+
+        window.addEventListener('storage', handleStorageChange)
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange)
         }
     }, [])
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -78,6 +85,16 @@ const Navbar = () => {
                             </button>
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md py-2 z-50">
+                                    <button
+                                        onClick={() => {
+                                            setDropdownOpen(false)
+                                            navigate('/dashboard')
+                                        }}
+                                        className="w-full text-left px-4 py-2 text-sm text-neutral-90 hover:bg-gray-100"
+                                    >
+                                        Dashboard
+                                    </button>
+
                                     <button
                                         onClick={handleLogout}
                                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
