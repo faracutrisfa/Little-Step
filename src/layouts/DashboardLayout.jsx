@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Logo from '../components/Logo';
 import BundaProfile from '../assets/bunda-profile.webp';
 import BayiProfile from '../assets/bayi-profile.webp';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import Bunda from '../modules/dashboard/Bunda';
 
 const SidebarItem = ({ id, label, isActive, onClick, icon }) => (
     <li>
@@ -30,6 +31,18 @@ const DashboardLayout = ({ children, activeSidebar, setActiveSidebar }) => {
         setUser(storedUser ? JSON.parse(storedUser) : null);
     }, []);
 
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!e.target.closest('#profile-dropdown')) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
 
     return (
         <div className="font-nunito min-h-screen flex flex-col">
@@ -45,24 +58,52 @@ const DashboardLayout = ({ children, activeSidebar, setActiveSidebar }) => {
                     >
                         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
-                    <div className="hidden lg:flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
-                            <img
-                                src="/api/placeholder/32/32"
-                                alt="Profile"
-                                className="w-full h-full object-cover"
+                    <div className="hidden lg:block relative" id="profile-dropdown">
+                        <button
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            className="flex items-center gap-2 focus:outline-none"
+                        >
+                            <div className="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src={BundaProfile}
+                                    alt="Profile"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <span className="text-zinc-800 text-xs lg:text-base font-extrabold">
+                                {user?.name || 'Pengguna'}
+                            </span>
+                            <ChevronDown
+                                size={16}
+                                className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
                             />
-                        </div>
-                        <span className="text-zinc-800 text-xs lg:text-base font-extrabold">
-                            {user?.name || 'Pengguna'}
-                        </span>
+                        </button>
+                        {dropdownOpen && (
+                            <div className="absolute right-0 mt-2 w-40 bg-white font-extrabold rounded-lg shadow-lg border z-50">
+                                <a
+                                    href="/"
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100"
+                                >
+                                    Home
+                                </a>
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem('user');
+                                        window.location.href = '/login';
+                                    }}
+                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </header>
 
-            <div className="flex flex-1 h-screen">
+            <div className="flex flex-1 h-auto">
                 <aside
-                    className={`fixed h-screen lg:static z-40 bg-primary-50 w-60 lg:w-60 shadow-md transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+                    className={`fixed h-screen lg:h-auto lg:static z-40 bg-primary-50 w-60 lg:w-60 shadow-md transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
                         }`}
                 >
                     <nav className="p-4">
