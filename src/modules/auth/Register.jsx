@@ -11,10 +11,11 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
         address: '',
         phoneNumber: ''
     });
+
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -30,7 +31,7 @@ const Register = () => {
         e.preventDefault();
         setError('');
 
-        if (formData.password !== formData.confirmPassword) {
+        if (formData.password !== confirmPassword) {
             setError('Password dan Konfirmasi Password tidak cocok.');
             return;
         }
@@ -38,8 +39,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const { confirmPassword, ...submitData } = formData; // remove confirmPassword
-            await authApi.register(submitData);
+            await authApi.register(formData);
             navigate('/');
         } catch (err) {
             setError(err.message || 'Registration failed. Please try again.');
@@ -135,8 +135,8 @@ const Register = () => {
                                     type="password"
                                     autoComplete="new-password"
                                     required
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="appearance-none rounded-lg block w-full pl-4 py-4 bg-primary-10 placeholder-primary-0 text-primary-0 text-sm focus:ring-1 focus:ring-primary-0 focus:border-primary-0"
                                     placeholder="Konfirmasi Password"
                                 />
