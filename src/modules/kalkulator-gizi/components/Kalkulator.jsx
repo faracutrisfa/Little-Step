@@ -1,8 +1,26 @@
 import React, { useState, useEffect } from "react";
 import FormInput from "../components/FormInput";
-import ResultSummary from "../components/ResultSummary";
 import NutrientEstimation from "../components/NutrientEstimation";
+import BabyNutritionResult from "./BabyNutritionResult";
 import { calculateNutrition } from "../services/calculator";
+
+const calculateAgeDescription = (birthDateStr) => {
+    try {
+        const birthDate = new Date(birthDateStr);
+        const currentDate = new Date();
+
+        if (isNaN(birthDate.getTime())) return "0 bulan 0 hari";
+
+        const diffMs = currentDate - birthDate;
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const months = Math.floor(diffDays / 30);
+        const days = diffDays % 30;
+
+        return `${months} bulan ${days} hari`;
+    } catch {
+        return "0 bulan 0 hari";
+    }
+};
 
 const NutritionCalculator = () => {
     const [formData, setFormData] = useState({
@@ -21,13 +39,15 @@ const NutritionCalculator = () => {
         if (stored) setFormData(JSON.parse(stored));
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        localStorage.setItem("nutritionFormData", JSON.stringify(formData));
-        const res = calculateNutrition(formData);
+    const handleSubmit = (data) => {
+        localStorage.setItem("nutritionFormData", JSON.stringify(data));
+        const res = calculateNutrition(data);
         console.log("Hasil perhitungan:", res);
+        setFormData(data);
         setResult(res);
     };
+
+    const ageDesc = calculateAgeDescription(formData.birthdate);
 
     return (
         <div>
@@ -57,7 +77,7 @@ const NutritionCalculator = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-3 mt-5">
-                        {['Health', 'Nutrition', 'Baby'].map(tag => (
+                        {["Health", "Nutrition", "Baby"].map((tag) => (
                             <span key={tag} className="p-2.5 bg-blue-300/70 text-white font-extrabold rounded-xl">
                                 {tag}
                             </span>
@@ -73,8 +93,14 @@ const NutritionCalculator = () => {
             </div>
 
             {result && (
-                <div className="container mt-12">
-                    <ResultSummary result={result} />
+                <div className="container mt-12 space-y-12">
+                    <BabyNutritionResult
+                        babyName={formData.name}
+                        weight={formData.weight}
+                        height={formData.height}
+                        ageDescription={ageDesc}
+                        statusText={result.statusText}  
+                    />
                     <NutrientEstimation result={result} />
                 </div>
             )}

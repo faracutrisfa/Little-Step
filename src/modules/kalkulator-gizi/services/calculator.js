@@ -5,7 +5,6 @@ export function calculateIdealWeightRange(heightCm, ageMonths) {
   let minWeight = 0;
   let maxWeight = 0;
 
-  // Sumber WHO: rentang berat ideal berdasarkan panjang badan (tidak tergantung usia dalam kasus ini)
   if (height <= 65) {
     minWeight = 6.4;
     maxWeight = 7.8;
@@ -29,9 +28,6 @@ export function calculateIdealWeightRange(heightCm, ageMonths) {
   };
 }
 
-/**
- * Estimasi apakah berat badan masuk kategori sehat.
- */
 export function checkWeightCategory(weight, idealMin, idealMax) {
   const w = parseFloat(weight);
   if (w < idealMin) return "Kurang";
@@ -97,9 +93,6 @@ export function estimateNutritionFromIngredients(ingredients) {
   return values;
 }
 
-/**
- * Ambil kebutuhan nutrisi berdasarkan usia (khusus 6 bulan dalam kasus ini).
- */
 export function getNutritionNeeds(ageMonths) {
   if (ageMonths !== 6) return null;
   return {
@@ -114,9 +107,6 @@ export function getNutritionNeeds(ageMonths) {
   };
 }
 
-/**
- * Hitung usia dalam bulan berdasarkan tanggal lahir.
- */
 function calculateAgeInMonths(birthdateStr) {
   const birthDate = new Date(birthdateStr);
   const today = new Date();
@@ -127,9 +117,16 @@ function calculateAgeInMonths(birthdateStr) {
   return Math.max(months, 0);
 }
 
-/**
- * Fungsi utama untuk menghitung semua data berdasarkan form input.
- */
+const text = {
+  kurang:
+    "Bayi Bunda memiliki berat badan kurang dari ideal. Disarankan untuk konsultasi lebih lanjut.",
+  ideal: `Bayi Bunda terindikasi sehat dengan berat badan ideal, yaitu antara {minIdeal} – {maxIdeal} kg. Si kecil berada dalam kategori gizi baik, sesuai dengan standar WHO untuk usianya.`,
+  berlebih:
+    "Bayi Bunda memiliki berat badan berlebih dari ideal. Perlu diperhatikan asupan gizinya.",
+  obesitas:
+    "Bayi Bunda terindikasi obesitas. Segera konsultasikan dengan dokter atau ahli gizi untuk perencanaan diet yang tepat.",
+};
+
 export function calculateNutrition({ height, weight, birthdate, ingredients }) {
   const ageMonths = calculateAgeInMonths(birthdate);
   const idealWeight = calculateIdealWeightRange(height, ageMonths);
@@ -142,9 +139,31 @@ export function calculateNutrition({ height, weight, birthdate, ingredients }) {
   const estimatedNutrition = estimateNutritionFromIngredients(ingredientsList);
   const nutritionNeeds = getNutritionNeeds(ageMonths);
 
+  let weightStatusMessage = "";
+
+  switch (weightCategory) {
+    case "Kurang":
+      weightStatusMessage = text.kurang;
+      break;
+    case "Sehat":
+      weightStatusMessage = text.ideal
+        .replace("{minIdeal}", idealWeight.min)
+        .replace("{maxIdeal}", idealWeight.max);
+      break;
+    case "Berlebihan":
+      weightStatusMessage = text.berlebih;
+      break;
+    case "Obesitas":
+      weightStatusMessage = text.obesitas;
+      break;
+    default:
+      weightStatusMessage = "Status berat badan tidak diketahui.";
+  }
+
   return {
     idealWeight,
     weightCategory,
+    statusText: weightStatusMessage,
     estimatedNutrition,
     nutritionNeeds,
   };

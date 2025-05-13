@@ -19,31 +19,40 @@ const calculateAge = (birthDateStr) => {
 };
 
 export default function FormInput({ handleSubmit }) {
-    const [formData, setFormData] = useState(() => {
-        const savedData = localStorage.getItem('formData');
-        return savedData ? JSON.parse(savedData) : {
-            name: '',
-            height: '',
-            weight: '',
-            gender: '',
-            birthdate: '',
-            ingredients: ''
-        };
+    const [formData, setFormData] = useState({
+        name: '',
+        height: '',
+        weight: '',
+        gender: '',
+        birthdate: '',
+        ingredients: ''
     });
 
     const [ageDisplay, setAgeDisplay] = useState({ months: 0, days: 0 });
 
     useEffect(() => {
         setAgeDisplay(calculateAge(formData.birthdate));
-        localStorage.setItem('formData', JSON.stringify(formData));
     }, [formData]);
 
     const handleChange = (field) => (e) => {
         setFormData({ ...formData, [field]: e.target.value });
     };
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        handleSubmit(formData); 
+        setFormData({
+            name: '',
+            height: '',
+            weight: '',
+            gender: '',
+            birthdate: '',
+            ingredients: ''
+        });
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+        <form onSubmit={onSubmit} className="space-y-4 max-w-md mx-auto">
             <div className="bg-primary-40 rounded-xl p-3">
                 <input
                     type="text"
