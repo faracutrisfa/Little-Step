@@ -7,7 +7,7 @@ import FoodScan from './components/FoodScan'
 const KalkulatorGizi = () => {
     return (
         <MainLayout>
-            <div>
+            <div className='font-nunito'>
                 <Hero />
                 <Kalkulator />
                 <FoodScan />

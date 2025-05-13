@@ -1,59 +1,19 @@
-import React, { useState, useEffect } from "react";
-import FormInput from "../components/FormInput";
-import NutrientEstimation from "../components/NutrientEstimation";
-import BabyNutritionResult from "./BabyNutritionResult";
-import { calculateNutrition } from "../services/calculator";
+import React, { useState } from 'react'
+import FoodInput from './FoodInput'
+import HasilGizi from './HasilGizi'
 
-const calculateAgeDescription = (birthDateStr) => {
-    try {
-        const birthDate = new Date(birthDateStr);
-        const currentDate = new Date();
+const Kalkulator = () => {
+    const [showResult, setShowResult] = useState(false)
 
-        if (isNaN(birthDate.getTime())) return "0 bulan 0 hari";
-
-        const diffMs = currentDate - birthDate;
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        const months = Math.floor(diffDays / 30);
-        const days = diffDays % 30;
-
-        return `${months} bulan ${days} hari`;
-    } catch {
-        return "0 bulan 0 hari";
+    const handleSubmit = () => {
+        setShowResult(true)
     }
-};
-
-const NutritionCalculator = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        height: "",
-        weight: "",
-        gender: "",
-        birthdate: "",
-        ingredients: "",
-    });
-
-    const [result, setResult] = useState(null);
-
-    useEffect(() => {
-        const stored = localStorage.getItem("nutritionFormData");
-        if (stored) setFormData(JSON.parse(stored));
-    }, []);
-
-    const handleSubmit = (data) => {
-        localStorage.setItem("nutritionFormData", JSON.stringify(data));
-        const res = calculateNutrition(data);
-        console.log("Hasil perhitungan:", res);
-        setFormData(data);
-        setResult(res);
-    };
-
-    const ageDesc = calculateAgeDescription(formData.birthdate);
 
     return (
-        <div>
-            <div className="container grid grid-cols-1 lg:grid-cols-2 py-14 gap-10 lg:gap-0">
+        <section className='py-14'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 container gap-10 lg:gap-16'>
                 <div>
-                    <h1 className="text-4xl font-extrabold text-zinc-800">Kalkulator Gizi</h1>
+                    <h1 className="text-4xl font-extrabold text-zinc-800 mb-4">Kalkulator Gizi</h1>
                     <p className="text-gray-600 font-semibold">
                         Kami menggunakan rumus standar BMI untuk membantu Bunda memahami kebutuhan gizi si kecil secara lebih akurat.
                     </p>
@@ -85,27 +45,12 @@ const NutritionCalculator = () => {
                     </div>
                 </div>
 
-                <FormInput
-                    formData={formData}
-                    setFormData={setFormData}
-                    handleSubmit={handleSubmit}
-                />
+                <FoodInput handleSubmit={handleSubmit} />
             </div>
 
-            {result && (
-                <div className="container mt-12 space-y-12">
-                    <BabyNutritionResult
-                        babyName={formData.name}
-                        weight={formData.weight}
-                        height={formData.height}
-                        ageDescription={ageDesc}
-                        statusText={result.statusText}  
-                    />
-                    <NutrientEstimation result={result} />
-                </div>
-            )}
-        </div>
-    );
-};
+            {showResult && <HasilGizi />}
+        </section>
+    )
+}
 
-export default NutritionCalculator;
+export default Kalkulator

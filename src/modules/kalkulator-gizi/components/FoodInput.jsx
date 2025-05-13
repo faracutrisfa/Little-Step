@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
-const calculateAge = (birthDateStr) => {
-    try {
-        const birthDate = new Date(birthDateStr);
-        const currentDate = new Date();
+const calculateBabyAge = (birthDateStr) => {
+    const birth = dayjs(birthDateStr);
+    const now = dayjs();
 
-        if (isNaN(birthDate.getTime())) return { months: 0, days: 0 };
+    if (!birthDateStr || !birth.isValid()) return { months: 0, days: 0 };
 
-        const diffMs = currentDate - birthDate;
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        const months = Math.floor(diffDays / 30);
-        const days = diffDays % 30;
+    const months = now.diff(birth, "month");
+    const days = now.diff(birth.add(months, "month"), "day");
 
-        return { months, days };
-    } catch {
-        return { months: 0, days: 0 };
-    }
+    return { months, days };
 };
 
-export default function FormInput({ handleSubmit }) {
+const FoodInput = ({ handleSubmit }) => {
     const [formData, setFormData] = useState({
         name: '',
         height: '',
@@ -31,8 +26,8 @@ export default function FormInput({ handleSubmit }) {
     const [ageDisplay, setAgeDisplay] = useState({ months: 0, days: 0 });
 
     useEffect(() => {
-        setAgeDisplay(calculateAge(formData.birthdate));
-    }, [formData]);
+        setAgeDisplay(calculateBabyAge(formData.birthdate));
+    }, [formData.birthdate]);
 
     const handleChange = (field) => (e) => {
         setFormData({ ...formData, [field]: e.target.value });
@@ -40,19 +35,12 @@ export default function FormInput({ handleSubmit }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        handleSubmit(formData); 
-        setFormData({
-            name: '',
-            height: '',
-            weight: '',
-            gender: '',
-            birthdate: '',
-            ingredients: ''
-        });
+        handleSubmit?.(formData);
     };
+    
 
     return (
-        <form onSubmit={onSubmit} className="space-y-4 max-w-md mx-auto">
+        <form onSubmit={onSubmit} className="space-y-4">
             <div className="bg-primary-40 rounded-xl p-3">
                 <input
                     type="text"
@@ -88,7 +76,7 @@ export default function FormInput({ handleSubmit }) {
                 {["male", "female"].map((gender) => (
                     <label
                         key={gender}
-                        className="bg-primary-40 rounded-xl p-3 flex-1 flex items-center"
+                        className="bg-primary-40 rounded-xl p-3 flex-1 flex items-center cursor-pointer"
                     >
                         <input
                             type="radio"
@@ -137,11 +125,13 @@ export default function FormInput({ handleSubmit }) {
             </div>
 
             <button
-                type="submit"
+                onClick={onSubmit}
                 className="w-full bg-primary-70 hover:bg-primary-90 text-white font-medium py-3 px-4 rounded-2xl transition-colors"
             >
                 Submit
             </button>
         </form>
     );
-}
+};
+
+export default FoodInput;
