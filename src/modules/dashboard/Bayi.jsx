@@ -1,10 +1,14 @@
 import React from 'react';
+import Profile from './components/dashboard-bayi/Profile';
+import BeratBadanIdeal from './components/dashboard-bayi/BeratBadanIdeal';
+import Grafik from './components/dashboard-bayi/Grafik';
 
 const Bayi = () => {
     return (
-        <div>
-            <h2 className="text-xl font-bold mb-4">Dashboard Bayi</h2>
-            <p>Konten khusus untuk Bayi.</p>
+        <div className='space-y-8'>
+            <Profile />
+            <BeratBadanIdeal />
+            <Grafik />
         </div>
     );
 };

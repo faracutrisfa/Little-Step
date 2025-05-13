@@ -50,7 +50,7 @@ const FoodScan = () => {
                         ) : (
                             <div className="flex flex-col items-center gap-2">
                                 <Icon icon="mdi:cloud-upload-outline" width="64" height="64" className="text-secondary-50" />
-                                <p className="text-primary-40 font-bold text-2xl">Drag and drop file here</p>
+                                <p className="text-secondary-50 font-bold text-2xl">Drag and drop file here</p>
                                 <p className="text-neutral-90">atau</p>
                                 <button
                                     type="button"
