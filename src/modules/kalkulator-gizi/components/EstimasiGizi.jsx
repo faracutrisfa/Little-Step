@@ -51,14 +51,27 @@ const analisis = [
 
 const splitArray = (arr) => [arr.slice(0, 4), arr.slice(4)];
 
-const EstimasiGizi = () => {
+const EstimasiGizi = ({ variant = 'primary' }) => {
     const [leftGizi, rightGizi] = splitArray(giziEstimasi);
     const [leftKebutuhan, rightKebutuhan] = splitArray(kebutuhanGizi);
+
+    const colorMap = {
+        primary: {
+            header: 'bg-primary-70',
+            section: 'bg-blue-50',
+        },
+        secondary: {
+            header: 'bg-secondary-50',
+            section: 'bg-secondary-10',
+        }
+    };
+
+    const colors = colorMap[variant] || colorMap.primary;
 
     return (
         <section className='space-y-4'>
             <div className='rounded-xl overflow-hidden shadow-md bg-white'>
-                <div className="bg-primary-70 text-white text-center font-bold py-3 px-4">
+                <div className={`${colors.header} text-white text-center font-bold py-3 px-4`}>
                     Hasil Estimasi Gizi dari Bahan yang Bunda Miliki:
                 </div>
 
@@ -75,7 +88,7 @@ const EstimasiGizi = () => {
                         {[{ title: "Estimasi Kandungan Gizi:", data: [leftGizi, rightGizi] },
                         { title: "Kebutuhan Gizi Anak Usia 6 Bulan per Hari (berdasarkan AKG):", data: [leftKebutuhan, rightKebutuhan] }]
                             .map((section, idx) => (
-                                <div key={idx} className="bg-blue-50 rounded-lg p-4 flex-1">
+                                <div key={idx} className={`${colors.section} rounded-lg p-4 flex-1`}>
                                     <h3 className="font-extrabold text-gray-800 mb-3">{section.title}</h3>
                                     <div className="grid grid-cols-2 gap-2">
                                         {section.data.map((group, i) => (
@@ -90,7 +103,7 @@ const EstimasiGizi = () => {
                             ))}
                     </div>
 
-                    <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                    <div className={`${colors.section} rounded-lg p-4 mb-6`}>
                         <div className="flex items-start mb-3 gap-3">
                             <img src={Document} alt="Dokumen Analisis" className="w-16 h-16 rounded" />
                             <div>
