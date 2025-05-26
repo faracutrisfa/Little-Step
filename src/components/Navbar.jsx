@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import Logo from './Logo';
 import Button from './Button';
+import { getProfileUser } from '../services/Profile';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,17 +15,11 @@ const Navbar = () => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-        setUser(storedUser ? JSON.parse(storedUser) : null);
-
-        const handleStorageChange = () => {
-            const updatedUser = localStorage.getItem('user');
-            setUser(updatedUser ? JSON.parse(updatedUser) : null);
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        } else {
+            setUser(null);
+        }
     }, []);
 
     useEffect(() => {
@@ -40,7 +35,6 @@ const Navbar = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
         localStorage.removeItem('token');
         setUser(null);
         setDropdownOpen(false);
@@ -55,7 +49,6 @@ const Navbar = () => {
     ];
 
     const toggleMenu = () => setIsOpen(!isOpen);
-
     const handleNavClick = () => {
         setIsOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -87,7 +80,7 @@ const Navbar = () => {
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 className="flex items-center gap-1 text-zinc-800 hover:text-secondary-50"
                             >
-                                Hi, {user.name}
+                                Hi, {user?.name}
                                 <Icon icon="mdi:chevron-down" width="20" />
                             </button>
                             {dropdownOpen && (
@@ -120,7 +113,7 @@ const Navbar = () => {
 
                 <div className="md:hidden flex items-center gap-3">
                     {user && (
-                        <span className="text-sm text-zinc-800 font-bold">Hi, {user.name}</span>
+                        <span className="text-sm text-zinc-800 font-bold">Hi, {user?.name}</span>
                     )}
                     <button onClick={toggleMenu}>
                         <Icon icon={isOpen ? 'mdi:close' : 'mdi:menu'} className="w-6 h-6 text-zinc-800" />

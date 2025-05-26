@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import authApi from '../../auth/api';
 import AuthHero from "../../assets/hero-auth.jpg";
 import Logo from "../../components/Logo";
 import { Icon } from '@iconify/react';
+import { login } from './services/auth';
 
 const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -29,10 +30,10 @@ const Login = () => {
         setLoading(true);
 
         try {
-            await authApi.login(formData);
+            await login(formData);
             navigate('/');
         } catch (err) {
-            setError(err.message || 'Failed to login. Please check your credentials.');
+            setError(err.message || 'Failed to login.');
         } finally {
             setLoading(false);
         }
@@ -79,7 +80,7 @@ const Login = () => {
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     autoComplete="current-password"
                                     required
                                     value={formData.password}
@@ -87,9 +88,13 @@ const Login = () => {
                                     className="appearance-none rounded-lg relative block w-full pl-4 py-4 lg:py-6 bg-secondary-10 placeholder-primary-0 text-primary-0 focus:outline-none focus:ring-1 focus:ring-primary-0 focus:border-primary-0 text-sm"
                                     placeholder="Password"
                                 />
-                                <div className="absolute z-20 inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                    <Icon icon="mdi:eye-off" className="w-5 h-5 text-primary-0" />
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute z-20 inset-y-0 right-0 flex items-center pr-4 text-primary-0 focus:outline-none"
+                                >
+                                    <Icon icon={showPassword ? "mdi:eye" : "mdi:eye-off"} className="w-5 h-5" />
+                                </button>
                             </div>
 
                             <div className="flex justify-end">

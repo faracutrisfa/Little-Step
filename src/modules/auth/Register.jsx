@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import authApi from '../../auth/api';
 import AuthHero from "../../assets/hero-auth.jpg";
 import Logo from "../../components/Logo";
 import { Icon } from '@iconify/react';
+import { register } from './services/auth';
 
 const Register = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -39,7 +41,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await authApi.register(formData);
+            await register(formData);
             navigate('/');
         } catch (err) {
             setError(err.message || 'Registration failed. Please try again.');
@@ -114,7 +116,7 @@ const Register = () => {
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     autoComplete="new-password"
                                     required
                                     value={formData.password}
@@ -122,9 +124,13 @@ const Register = () => {
                                     className="appearance-none rounded-lg block w-full pl-4 py-4 bg-primary-10 placeholder-primary-0 text-primary-0 text-sm focus:ring-1 focus:ring-primary-0 focus:border-primary-0"
                                     placeholder="Password"
                                 />
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                    <Icon icon="mdi:eye-off" className="w-5 h-5 text-primary-0" />
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute z-20 inset-y-0 right-0 flex items-center pr-4 text-primary-0 focus:outline-none"
+                                >
+                                    <Icon icon={showPassword ? "mdi:eye" : "mdi:eye-off"} className="w-5 h-5" />
+                                </button>
                             </div>
 
                             <div className="relative">
@@ -132,7 +138,7 @@ const Register = () => {
                                 <input
                                     id="confirmPassword"
                                     name="confirmPassword"
-                                    type="password"
+                                    type={showConfirmPassword ? "text" : "password"}
                                     autoComplete="new-password"
                                     required
                                     value={confirmPassword}
@@ -140,9 +146,13 @@ const Register = () => {
                                     className="appearance-none rounded-lg block w-full pl-4 py-4 bg-primary-10 placeholder-primary-0 text-primary-0 text-sm focus:ring-1 focus:ring-primary-0 focus:border-primary-0"
                                     placeholder="Konfirmasi Password"
                                 />
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                    <Icon icon="mdi:eye-off" className="w-5 h-5 text-primary-0" />
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute z-20 inset-y-0 right-0 flex items-center pr-4 text-primary-0 focus:outline-none"
+                                >
+                                    <Icon icon={showConfirmPassword ? "mdi:eye" : "mdi:eye-off"} className="w-5 h-5" />
+                                </button>
                             </div>
 
                             <div className="flex text-center justify-center">

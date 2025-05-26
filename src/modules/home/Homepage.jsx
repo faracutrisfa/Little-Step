@@ -14,7 +14,7 @@ const Homepage = () => {
         <MainLayout>
             <div>
                 <Hero />
-                <DaruratGizi />
+                {/* <DaruratGizi /> */}
                 <Komitmen />
                 <Fitur />
                 <FaseTumbuh />
