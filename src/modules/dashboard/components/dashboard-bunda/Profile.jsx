@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SquarePen } from 'lucide-react';
 import BundaProfile from "../../../../assets/bunda-profile.webp";
+import { getProfileUser, updateUserProfile } from '../../../../services/Profile';
 
 const defaultProfile = {
     name: 'Nama Bunda',
@@ -10,17 +11,31 @@ const defaultProfile = {
 
 const Profile = () => {
     const [profile, setProfile] = useState(defaultProfile);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-            setProfile({
-                name: user.name || defaultProfile.name,
-                email: user.email || defaultProfile.email,
-                phone: user.phone || defaultProfile.phone,
-            });
-        }
+        const fetchProfile = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    console.warn('Token tidak ditemukan');
+                    return;
+                }
+
+                const res = await getProfileUser(token);
+                setProfile({
+                    name: res.name || defaultProfile.name,
+                    email: res.email || defaultProfile.email,
+                    phone: res.phone || defaultProfile.phone,
+                });
+            } catch (error) {
+                console.error('Gagal mengambil profil:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
     }, []);
 
     const handleChange = (e) => {
@@ -28,9 +43,20 @@ const Profile = () => {
         setProfile((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSave = () => {
-        localStorage.setItem('user', JSON.stringify(profile));
-        alert('Profil berhasil disimpan!');
+    const handleSave = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Token tidak tersedia. Harap login ulang.');
+                return;
+            }
+
+            await updateUserProfile(profile, token);
+            alert('Profil berhasil disimpan!');
+        } catch (error) {
+            console.error('Gagal menyimpan profil:', error);
+            alert('Terjadi kesalahan saat menyimpan profil.');
+        }
     };
 
     const InputField = ({ label, name, type = 'text', value }) => (
@@ -48,6 +74,10 @@ const Profile = () => {
             />
         </div>
     );
+
+    if (loading) {
+        return <div className="text-center py-10">Memuat profil...</div>;
+    }
 
     return (
         <div className="flex justify-center">
@@ -91,4 +121,4 @@ const Profile = () => {
     );
 };
 
-export default Profile; 
+export default Profile;

@@ -30,7 +30,9 @@ const Login = () => {
         setLoading(true);
 
         try {
-            await login(formData);
+            const res = await login(formData);
+            console.log('Login response:', res);
+            localStorage.setItem('token', res.token); 
             navigate('/');
         } catch (err) {
             setError(err.message || 'Failed to login.');

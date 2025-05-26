@@ -1,7 +1,7 @@
 import { apiClient } from "../lib/api";
 
 export async function getProfileUser(token) {
-  const res = await apiClient(`/api/user/me`, "GET", {
+  const res = await apiClient(`/api/profile/me`, "GET", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -10,7 +10,7 @@ export async function getProfileUser(token) {
 }
 
 export async function updateUserProfile(body, token) {
-  const res = await apiClient(`/api/user/me`, "PUT", {
+  const res = await apiClient(`/api/profile/me`, "PUT", {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export async function updateUserProfile(body, token) {
 }
 
 export async function deleteUserAccount(token) {
-  const res = await apiClient(`/api/user/me`, "DELETE", {
+  const res = await apiClient(`/api/profile/me`, "DELETE", {
     headers: {
       Authorization: `Bearer ${token}`,
     },

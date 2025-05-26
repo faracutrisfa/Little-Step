@@ -41,7 +41,8 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await register(formData);
+            const res = await login(formData);
+            localStorage.setItem('token', res.token);
             navigate('/');
         } catch (err) {
             setError(err.message || 'Registration failed. Please try again.');

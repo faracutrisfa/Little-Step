@@ -14,12 +14,27 @@ const Navbar = () => {
     const dropdownRef = useRef(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        } else {
-            setUser(null);
-        }
+        const token = localStorage.getItem('token');
+
+        const fetchUser = async () => {
+            try {
+                if (token) {
+                    const res = await getProfileUser(token);
+                    setUser(res);
+                    console.log('User profile fetched:', res);
+                    localStorage.setItem('user', JSON.stringify(res));
+                } else {
+                    setUser(null);
+                }
+            } catch (err) {
+                console.error('Token invalid or error fetching profile:', err);
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                setUser(null);
+            }
+        };
+
+        fetchUser();
     }, []);
 
     useEffect(() => {
@@ -36,6 +51,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUser(null);
         setDropdownOpen(false);
         navigate('/');
@@ -80,7 +96,7 @@ const Navbar = () => {
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 className="flex items-center gap-1 text-zinc-800 hover:text-secondary-50"
                             >
-                                Hi, {user?.name}
+                                Hi, {user.name}
                                 <Icon icon="mdi:chevron-down" width="20" />
                             </button>
                             {dropdownOpen && (
