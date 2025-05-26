@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import { createChild, createGrowthRecord } from "../../../services/KalkulatorGizi";
 
 const calculateBabyAge = (birthDateStr) => {
     const birth = dayjs(birthDateStr);
@@ -13,31 +14,42 @@ const calculateBabyAge = (birthDateStr) => {
     return { months, days };
 };
 
-const FoodInput = ({ handleSubmit }) => {
-    const [formData, setFormData] = useState({
+const FoodInput = () => {
+    const [child, setChild] = useState({
         name: '',
-        height: '',
-        weight: '',
+        birthDate: '',
         gender: '',
-        birthdate: '',
-        ingredients: ''
     });
+
+    const [growth, setGrowth] = useState({
+        heightCm: '',
+        weightKg: '',
+        headCircumferenceCm: ''
+    });
+    const [responseUser, setResponseUser] = useState(null);
 
     const [ageDisplay, setAgeDisplay] = useState({ months: 0, days: 0 });
 
     useEffect(() => {
-        setAgeDisplay(calculateBabyAge(formData.birthdate));
-    }, [formData.birthdate]);
+        setAgeDisplay(calculateBabyAge(child.birthDate));
+    }, [child.birthDate]);
 
-    const handleChange = (field) => (e) => {
-        setFormData({ ...formData, [field]: e.target.value });
+    const handleChildChange = (field) => (e) => {
+        setChild({ ...child, [field]: e.target.value });
     };
 
-    const onSubmit = (e) => {
+    const handleGrowthChange = (field) => (e) => {
+        setGrowth({ ...growth, [field]: e.target.value });
+    };
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        handleSubmit?.(formData);
+        const res = await createChild(child);
+        setResponseUser(res);
+        console.log("Child created:", res);
+        await createGrowthRecord(growth, responseUser.id);
+        // await 
     };
-    
 
     return (
         <form onSubmit={onSubmit} className="space-y-4">
@@ -45,8 +57,8 @@ const FoodInput = ({ handleSubmit }) => {
                 <input
                     type="text"
                     placeholder="Nama Lengkap Bayi"
-                    value={formData.name}
-                    onChange={handleChange("name")}
+                    value={child.name}
+                    onChange={handleChildChange("name")}
                     className="w-full bg-transparent font-extrabold text-primary-50 placeholder-primary-50 outline-none"
                 />
             </div>
@@ -55,9 +67,9 @@ const FoodInput = ({ handleSubmit }) => {
                 <div className="bg-primary-40 rounded-xl p-3 flex-1">
                     <input
                         type="number"
-                        placeholder="Tinggi Badan (m)"
-                        value={formData.height}
-                        onChange={handleChange("height")}
+                        placeholder="Tinggi Badan (cm)"
+                        value={growth.heightCm}
+                        onChange={handleGrowthChange("heightCm")}
                         className="w-full bg-transparent font-extrabold text-primary-50 placeholder-primary-50 outline-none"
                     />
                 </div>
@@ -65,8 +77,8 @@ const FoodInput = ({ handleSubmit }) => {
                     <input
                         type="number"
                         placeholder="Berat Badan (kg)"
-                        value={formData.weight}
-                        onChange={handleChange("weight")}
+                        value={growth.weightKg}
+                        onChange={handleGrowthChange("weightKg")}
                         className="w-full bg-transparent font-extrabold text-primary-50 placeholder-primary-50 outline-none"
                     />
                 </div>
@@ -82,8 +94,8 @@ const FoodInput = ({ handleSubmit }) => {
                             type="radio"
                             name="gender"
                             value={gender}
-                            checked={formData.gender === gender}
-                            onChange={() => setFormData({ ...formData, gender })}
+                            checked={child.gender === gender}
+                            onChange={() => setChild({ ...child, gender })}
                             className="mr-2"
                         />
                         <span className="text-primary-50 font-extrabold">
@@ -99,8 +111,8 @@ const FoodInput = ({ handleSubmit }) => {
                     <div className="bg-primary-40 rounded-xl p-3 flex items-center">
                         <input
                             type="date"
-                            value={formData.birthdate}
-                            onChange={handleChange("birthdate")}
+                            value={child.birthDate}
+                            onChange={handleChildChange("birthDate")}
                             className="bg-transparent text-primary-50 font-extrabold outline-none w-32"
                         />
                     </div>
@@ -115,17 +127,17 @@ const FoodInput = ({ handleSubmit }) => {
                     Masukkan Bahan Makanan
                 </label>
                 <div className="bg-primary-40 rounded-xl p-3">
-                    <textarea
+                    {/* <textarea
                         placeholder="Tuliskan bahan makanan apa saja yang Bunda miliki"
-                        value={formData.ingredients}
-                        onChange={handleChange("ingredients")}
+                        value={child.ingredients}
+                        onChange={handleChildChange("ingredients")}
                         className="w-full h-24 bg-transparent text-primary-50 placeholder-primary-50 outline-none resize-none"
-                    />
+                    /> */}
                 </div>
             </div>
 
             <button
-                onClick={onSubmit}
+                type="submit"
                 className="w-full bg-primary-70 hover:bg-primary-90 text-white font-medium py-3 px-4 rounded-2xl transition-colors"
             >
                 Submit

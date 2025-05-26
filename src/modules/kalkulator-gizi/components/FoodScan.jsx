@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import HasilAI from './HasilAI';
 import { Icon } from '@iconify/react';
+import { analyzeFood } from '../../../services/FoodScan';
+import { getProfileUser } from '../../../services/Profile';
 
 const FoodScan = () => {
     const [showResult, setShowResult] = useState(false);
@@ -25,7 +27,7 @@ const FoodScan = () => {
         fileInputRef.current?.click();
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (!file) {
@@ -37,6 +39,10 @@ const FoodScan = () => {
         formData.append('image', file);
         formData.append('description', description);
 
+        const token = localStorage.getItem('token');
+        const user = await getProfileUser(token)
+
+        await analyzeFood(formData, user.id);
         console.log('Submitting...', formData);
 
         setShowResult(true);
